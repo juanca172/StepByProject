@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SplashScreen: View {
     @State var isHidding = true
+    @State var presentViewController = false
     var body: some View {
         VStack {
             Image("StepBy")
@@ -22,8 +23,14 @@ struct SplashScreen: View {
         .onAppear() {
             withAnimation(Animation.default.delay(1.0)) {
                 isHidding.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    presentViewController.toggle()
+                }
             }
         }
+        .fullScreenCover(isPresented: $presentViewController, content: {
+            LoginView()
+        })
     }
 }
 
