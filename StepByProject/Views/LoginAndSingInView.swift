@@ -135,7 +135,7 @@ struct RegisterButtons: View {
             .font(.title2)
             .fontWeight(loginPush ? .light : .heavy)
             .bold(!loginPush)
-            .frame(width: 150, height: 30)
+            .frame(width: 150, height: 40)
             .background(loginPush ? Color.white : Color.black)
             .foregroundStyle(loginPush ? Color.black : Color.white)
             .clipShape(.capsule)
@@ -149,7 +149,7 @@ struct RegisterButtons: View {
                 }
             }
             .font(.title2)
-            .frame(width: 150, height: 30)
+            .frame(width: 150, height: 40)
             .fontWeight(signInPush ? .heavy : .light)
             .background(signInPush ? Color.black: Color.white)
             .clipShape(.capsule)
