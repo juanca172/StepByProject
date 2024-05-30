@@ -11,7 +11,7 @@ import SwiftUI
 struct StepByProjectApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashScreen()
         }
     }
 }
