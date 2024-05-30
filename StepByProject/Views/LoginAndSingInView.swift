@@ -10,23 +10,37 @@ import SwiftUI
 struct LoginView: View {
     @State var mail: String = ""
     @State var password: String = ""
+    @State var loginPush: Bool = false
+    @State var signInPush: Bool = false
+    @State var name: String = ""
     var body: some View {
         VStack (){
-            RegisterButtons()
+            RegisterButtons(loginPush: $loginPush, signInPush: $signInPush)
         }
         .frame(maxWidth: .infinity, maxHeight: 50)
         .background(Color.gray)
         .clipShape(.capsule)
         .padding([.leading, .trailing])
-        VStack {
-            Image("StepBy")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .clipShape(.capsule)
-                .frame(width: 200, height: 200)
-            LoginComponentsView(mail: $mail, password: $password)
+        Image("StepBy")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .clipShape(.capsule)
+            .frame(width: 200, height: 200)
+        ZStack {
+            if loginPush {
+                VStack {
+                    SignInView(tfName: $name, tfEmail: $mail, tfPassword: $password)
+                        .padding()
+                }
+            } else {
+                VStack {
+                    LoginComponentsView(mail: $mail, password: $password)
+                }
+                .padding()
+            }
+            
+            
         }
-        .padding()
         Spacer()
         
     }
@@ -38,6 +52,9 @@ struct LoginView: View {
 struct LoginComponentsView: View {
     @Binding var mail: String
     @Binding var password: String
+    @State var isSecured = true
+    @FocusState var fc1: Bool
+    @FocusState var fc2: Bool
     var body: some View {
         HStack {
             VStack (alignment: .leading){
@@ -45,24 +62,43 @@ struct LoginComponentsView: View {
                     .font(.caption2)
                 Text("Login")
                     .font(.title)
+                    .fontWeight(.heavy)
             }
             .padding()
             Spacer()
         }
         VStack(alignment: .leading, spacing: 20) {
             TextField("Ingrese su Email", text: $mail)
-                .font(.title3)
                 .padding()
-                .frame(maxWidth: .infinity, maxHeight:30)
-                .background(Color(.lightGray))
+                .keyboardType(.emailAddress)
                 .border(.black, width: 3)
-                .clipShape(.rect(cornerRadius: 10))
-            SecureField("Ingrese su password", text: $password)
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight:30)
-                .background(Color(.lightGray))
-                .border(.black, width: 3)
-                .clipShape(.rect(cornerRadius: 10))
+            ZStack(alignment: .trailing) {
+                Group {
+                    if isSecured {
+                        SecureField("Password", text: $password)
+                            .padding()
+                            .keyboardType(.default)
+                            .border(.black, width: 3)
+                            .focused($fc1)
+                    } else {
+                        TextField("Password", text: $password)
+                            .padding()
+                            .keyboardType(.default)
+                            .border(.black, width: 3)
+                            .focused($fc2)
+                    }
+                }
+                .overlay(alignment: .trailing) {
+                    Button(action: {
+                        isSecured.toggle()
+                        if isSecured { fc1 = true } else { fc2 = true }
+                    }) {
+                        Image(systemName: self.isSecured ? "eye.slash" : "eye")
+                            .accentColor(.gray)
+                    }
+                    .padding()
+                }
+            }
         }
         VStack {
             HStack {
@@ -86,8 +122,8 @@ struct LoginComponentsView: View {
     }
 }
 struct RegisterButtons: View {
-    @State var loginPush: Bool = false
-    @State var signInPush: Bool = false
+    @Binding var loginPush: Bool
+    @Binding var signInPush: Bool
     var body: some View {
         HStack {
             Button("Log in") {
@@ -120,6 +156,67 @@ struct RegisterButtons: View {
             .foregroundStyle(signInPush ? Color.white : Color.black)
             .bold(signInPush)
             .shadow(radius: signInPush ? 20 : 0)
+            .padding()
+        }
+    }
+}
+struct SignInView: View {
+    @Binding var tfName: String
+    @Binding var tfEmail: String
+    @Binding var tfPassword: String
+    @State var isSecured = true
+    @FocusState var fc1: Bool
+    @FocusState var fc2: Bool
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Sign UP!")
+                .font(.title)
+                .fontWeight(.heavy)
+            TextField("Name", text: $tfName)
+                .padding()
+                .keyboardType(.default)
+                .border(.black, width: 3)
+            TextField("Email", text: $tfEmail)
+                .padding()
+                .keyboardType(.emailAddress)
+                .border(.black, width: 3)
+            ZStack(alignment: .trailing) {
+                Group {
+                    if isSecured {
+                        SecureField("Password", text: $tfPassword)
+                            .padding()
+                            .keyboardType(.default)
+                            .border(.black, width: 3)
+                            .focused($fc1)
+                    } else {
+                        TextField("Password", text: $tfPassword)
+                            .padding()
+                            .keyboardType(.default)
+                            .border(.black, width: 3)
+                            .focused($fc2)
+                    }
+                }
+                .overlay(alignment: .trailing) {
+                    Button(action: {
+                        isSecured.toggle()
+                        if isSecured { fc1 = true } else { fc2 = true }
+                    }) {
+                        Image(systemName: self.isSecured ? "eye.slash" : "eye")
+                            .accentColor(.gray)
+                    }
+                    .padding()
+                }
+            }
+        }
+        VStack {
+            Button("Sign in") {
+                
+            }
+            .frame(maxWidth: .infinity, maxHeight: 50)
+            .background(Color(.red))
+            .foregroundStyle(.black)
+            .fontWeight(.bold)
+            .clipShape(.rect(cornerRadius: 10))
             .padding()
         }
     }
