@@ -12,6 +12,8 @@
 		83D1B98C2C08F60E00E8BFED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83D1B98B2C08F60E00E8BFED /* Assets.xcassets */; };
 		83D1B98F2C08F60E00E8BFED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83D1B98E2C08F60E00E8BFED /* Preview Assets.xcassets */; };
 		83D1B9982C08F68500E8BFED /* LoginAndSingInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D1B9972C08F68500E8BFED /* LoginAndSingInView.swift */; };
+		83DC27D42C0A8DBB00443AFE /* Proyectos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DC27D32C0A8DBB00443AFE /* Proyectos.swift */; };
+		83DC27D62C0A902300443AFE /* AddProjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DC27D52C0A902300443AFE /* AddProjects.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		83D1B98B2C08F60E00E8BFED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83D1B98E2C08F60E00E8BFED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		83D1B9972C08F68500E8BFED /* LoginAndSingInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAndSingInView.swift; sourceTree = "<group>"; };
+		83DC27D32C0A8DBB00443AFE /* Proyectos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proyectos.swift; sourceTree = "<group>"; };
+		83DC27D52C0A902300443AFE /* AddProjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjects.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 			children = (
 				83D1B9892C08F60B00E8BFED /* SplashScreen.swift */,
 				83D1B9972C08F68500E8BFED /* LoginAndSingInView.swift */,
+				83DC27D32C0A8DBB00443AFE /* Proyectos.swift */,
+				83DC27D52C0A902300443AFE /* AddProjects.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -149,7 +155,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				83D1B98A2C08F60B00E8BFED /* SplashScreen.swift in Sources */,
+				83DC27D62C0A902300443AFE /* AddProjects.swift in Sources */,
 				83D1B9982C08F68500E8BFED /* LoginAndSingInView.swift in Sources */,
+				83DC27D42C0A8DBB00443AFE /* Proyectos.swift in Sources */,
 				83D1B9882C08F60B00E8BFED /* StepByProjectApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
