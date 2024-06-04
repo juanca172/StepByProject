@@ -13,8 +13,9 @@ struct LoginView: View {
     @State var loginPush: Bool = false
     @State var signInPush: Bool = false
     @State var name: String = ""
+    @State var present: Bool = false
     var body: some View {
-        VStack (){
+        VStack () {
             RegisterButtons(loginPush: $loginPush, signInPush: $signInPush)
         }
         .frame(maxWidth: .infinity, maxHeight: 50)
@@ -31,18 +32,35 @@ struct LoginView: View {
                 VStack {
                     SignInView(tfName: $name, tfEmail: $mail, tfPassword: $password)
                         .padding()
+                    Button("Sign in") {
+                        
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .background(Color(.red))
+                    .foregroundStyle(.black)
+                    .fontWeight(.bold)
+                    .clipShape(.rect(cornerRadius: 10))
+                    .padding()
                 }
             } else {
                 VStack {
                     LoginComponentsView(mail: $mail, password: $password)
+                    Button("Log in") {
+                        present.toggle()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .background(Color(.red))
+                    .foregroundStyle(.black)
+                    .fontWeight(.bold)
+                    .clipShape(.rect(cornerRadius: 10))
                 }
                 .padding()
             }
-            
-            
         }
         Spacer()
-        
+            .fullScreenCover(isPresented: $present, content: {
+                Proyectos()
+            })
     }
 }
 
@@ -110,14 +128,6 @@ struct LoginComponentsView: View {
                 }
                 .padding()
             }
-            Button("Log in") {
-                print(mail)
-            }
-            .frame(maxWidth: .infinity, maxHeight: 50)
-            .background(Color(.red))
-            .foregroundStyle(.black)
-            .fontWeight(.bold)
-            .clipShape(.rect(cornerRadius: 10))
         }
     }
 }
@@ -207,17 +217,6 @@ struct SignInView: View {
                     .padding()
                 }
             }
-        }
-        VStack {
-            Button("Sign in") {
-                
-            }
-            .frame(maxWidth: .infinity, maxHeight: 50)
-            .background(Color(.red))
-            .foregroundStyle(.black)
-            .fontWeight(.bold)
-            .clipShape(.rect(cornerRadius: 10))
-            .padding()
         }
     }
 }
