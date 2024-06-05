@@ -10,14 +10,11 @@ import SwiftUI
 struct Proyectos: View {
     @State var coincidence = ""
     @State var present = false
-    var filterArray: [ProyectModel] {
-        guard !coincidence.isEmpty else { return TestData.mockData }
-        return TestData.mockData.filter({$0.name.localizedCaseInsensitiveContains(coincidence)})
-    }
+    var viewModel = ViewModelProjects()
     var body: some View {
         NavigationStack {
             List {
-                ForEach(filterArray, id: \.id) { elements in
+                ForEach(viewModel.filterArray, id: \.id) { elements in
                     HStack {
                         Image(systemName: elements.image)
                             .resizable()
@@ -30,10 +27,14 @@ struct Proyectos: View {
                         }
                     }
                 }
-                .sheet(isPresented: $present, content: {
-                    AddProjects()
-                        .presentationDetents([.large])
+            }
+            .sheet(isPresented: $present,
+                   content: {
+                        AddProjects()
+                            .presentationDetents([.large])
                 })
+            .onChange(of: coincidence) { oldValue, newValue in
+                viewModel.rechargeFilterData(newValue)
             }
             Spacer()
             .navigationTitle("Proyectos")
@@ -47,9 +48,9 @@ struct Proyectos: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        present.toggle()
-                    }
-                           , label: {
+                        present = true
+                    },
+                    label: {
                         Image(systemName: "plus")
                             .resizable()
                             .aspectRatio(contentMode: .fill)

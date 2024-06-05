@@ -8,6 +8,14 @@
 import Foundation
 import Observation
 
-class ViewModelProjects: Observable {
-    
+@Observable
+class ViewModelProjects {
+    var coincidence = ""
+    var filterArray: [ProyectModel] {
+        guard !coincidence.isEmpty else { return TestData.mockData }
+        return TestData.mockData.filter({$0.name.localizedCaseInsensitiveContains(coincidence)})
+    }
+    func rechargeFilterData(_ information: String) {
+        coincidence = information
+    }
 }
