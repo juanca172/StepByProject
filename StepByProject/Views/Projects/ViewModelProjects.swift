@@ -11,6 +11,7 @@ import Observation
 @Observable
 class ViewModelProjects {
     var coincidence = ""
+    var newProyects = Array<ProyectModel>()
     var filterArray: [ProyectModel] {
         guard !coincidence.isEmpty else { return TestData.mockData }
         return TestData.mockData.filter({$0.name.localizedCaseInsensitiveContains(coincidence)})
